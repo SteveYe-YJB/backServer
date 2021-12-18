@@ -18,7 +18,11 @@ jobs:
       uses: actions/setup-node@master
     # - run: npm install
     # - run: npm run build
+<<<<<<< HEAD
     - run: tar -zcvf release.tgz App settings requirements.txt manage.py
+=======
+    - run: tar -zcvf release.tgz App settings requirements.txt
+>>>>>>> 7a691bea55338f4a9c432f69affbb0115c941e72
 
     # 发布 Release
     - name: Create Release
