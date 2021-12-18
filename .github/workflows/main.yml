@@ -16,8 +16,8 @@ jobs:
     # 打包构建
     - name: Build
       uses: actions/setup-node@master
-    - run: npm install
-    - run: npm run build
+    # - run: npm install
+    # - run: npm run build
     - run: tar -zcvf release.tgz App settings requirements.txt
 
     # 发布 Release
