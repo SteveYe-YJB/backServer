@@ -18,7 +18,7 @@ jobs:
       uses: actions/setup-node@master
     # - run: npm install
     # - run: npm run build
-    - run: tar -zcvf release.tgz App settings requirements.txt
+    - run: tar -zcvf release.tgz App settings requirements.txt manage.py
 
     # 发布 Release
     - name: Create Release
@@ -55,6 +55,7 @@ jobs:
         script: |
           cd /steveYe/project/selfbackserver
           wget https://github.com/SteveYe-YJB/backServer/releases/latest/download/release.tgz -O release.tgz
+          
           tar zxvf release.tgz
     # npm install --production
     # pm2 reload pm2.config.json

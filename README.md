@@ -10,11 +10,11 @@
 
 - 本地
 
-  - python manage.py runserver -h localhost -p 8000 -d -r --thread 开启服务
+  - python manage.py runserver -h localhost -p 9528 -d -r --thread 开启服务
 
 - 生产 linux
 
-  - nohup python manage.py runserver -h localhost -p 8000 -d -r --thread >/dev/null 2>&1 & 不阻塞进程运行
+  - nohup python manage.py runserver -h localhost -p 9528 -d -r --thread >/dev/null 2>&1 & 不阻塞进程运行
 
 ## 数据库操作
 
