@@ -45,3 +45,9 @@
   - flask-sqlacodegen --flask --outfile <输出的文件名> <数据库连接 URI> 会自动生成一个文件是已有表格的模型对应表
 
   - 还要重新修改一下，比如表之间的关系,外键之类的，一对多,多对一
+
+## 自动化部署
+
+- 查看当前的版本 git tag(若报错 tag 找不到,升级 git 版本)
+- 添加新的版本 git tag v0.1.0
+- 推送开始自动化 git push origin v0.1.0
