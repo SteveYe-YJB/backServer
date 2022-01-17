@@ -43,7 +43,6 @@ def readProject():
         requestData = RequestTool.RequestData(fileDict)
         result['data'] = CalculationTool.GetExcelList(requestData, 'App/static/files/2020科研数据.xlsx', '横向到帐经费')
         result['state'] = '1'
-        return result
     else:
         result['msg'] = '无效的get请求方式'
-        return result
+    return jsonify(result)

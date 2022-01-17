@@ -45,6 +45,8 @@ class CalculationTool:
                 '金额/元': 'amount',
                 '办理入账时间': 'entryTime'
             }, inplace=True)
+            excelData['amount'] = excelData['amount'].astype(str)
+            print(excelData)
             # 根据条件筛选
                 # 超级管理员密码则全部返回
                 # 有姓名且不是超级管理员密码则根据姓名筛选
