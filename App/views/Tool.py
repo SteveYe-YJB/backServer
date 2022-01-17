@@ -14,7 +14,7 @@ def standardScore():
     }
     if request.method == 'POST':
         result['state'] = '1'
-        if set(['score_data', 'new_std', 'new_mean']) <= set(request.json.keys()):
+        if set(['score_data', 'new_std', 'new_mean']) <= set(request.json.keys()) and bool(request.json.get('score_data')):
             result['data'] = CalculationTool.StandardScore(
                 request.json.get('score_data'),
                 request.json.get('new_std'),
