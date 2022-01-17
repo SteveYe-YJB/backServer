@@ -1,7 +1,7 @@
-import pandas as pd
-from .common.excel import ExcelTool
 # 业务
-
+import pandas as pd
+import numpy as np
+from .common.excel import ExcelTool
 
 class CalculationTool:
     # 计算转换后的方差
@@ -45,7 +45,7 @@ class CalculationTool:
                 '金额/元': 'amount',
                 '办理入账时间': 'entryTime'
             }, inplace=True)
-            excelData['amount'] = excelData['amount'].astype(str)
+            excelData.replace(np.NaN, '', inplace=True)
             print(excelData)
             # 根据条件筛选
                 # 超级管理员密码则全部返回
