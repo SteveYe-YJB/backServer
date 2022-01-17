@@ -6,6 +6,10 @@
 
 - 安装依赖文件 pip install -r requirements.txt
 
+- 特许包版本
+  - pip3 install flask_migrate==2.7.0  
+  - pip3 install Flask==1.1.4
+  - pip install python-dotenv
 ## 开启服务
 
 - 本地

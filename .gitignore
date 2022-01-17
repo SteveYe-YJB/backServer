@@ -1,3 +1,5 @@
 .env
 *.pyc
 migrations
+.DS_Store
+scheduler.lock
