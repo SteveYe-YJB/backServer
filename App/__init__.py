@@ -13,7 +13,6 @@ def create_app(env):
 
     # 配置定时任务
     app.config.from_object(TimeTasks())
-    app.config['JSON_AS_ASCII'] = False
 
     # 初始化第三方拓展库
     init_ext(app)

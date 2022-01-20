@@ -1,17 +1,17 @@
-from sqlalchemy.orm import backref
+from pyparsing import autoname_elements
+from sqlalchemy import false
 from App.utils.ext import db
 
+# class Skukey(db.Model):
+#     __tablename__ = 'skuKeyId_table_20201126'
 
-class Skukey(db.Model):
-    __tablename__ = 'skuKeyId_table_20201126'
-
-    skuKeyId = db.Column(db.Unicode(35), primary_key=True)
-    skuId = db.Column(db.Unicode(100), nullable=False)
-    dataState = db.Column(db.Integer, nullable=False)
-    remark = db.Column(db.Unicode(150), nullable=False)
-    createPeoPle = db.Column(db.Unicode(20), nullable=False)
-    createDateTime = db.Column(db.DateTime, nullable=False)
-    updateDateTime = db.Column(db.DateTime, nullable=False)
+#     skuKeyId = db.Column(db.Unicode(35), primary_key=True)
+#     skuId = db.Column(db.Unicode(100), nullable=False)
+#     dataState = db.Column(db.Integer, nullable=False)
+#     remark = db.Column(db.Unicode(150), nullable=False)
+#     createPeoPle = db.Column(db.Unicode(20), nullable=False)
+#     createDateTime = db.Column(db.DateTime, nullable=False)
+#     updateDateTime = db.Column(db.DateTime, nullable=False)
 #     getforecast = db.relationship('Forecast', backref='getskukey', lazy =True)
 #     getrollplan = db.relationship('RollPlan', backref='getskukey', lazy =True)
 #     getskudetail = db.relationship('SkuDetail', backref='getskukey', lazy =True)
@@ -163,12 +163,25 @@ class Skukey(db.Model):
 # # class Cat(Animal):
 # #     c_eat = db.Column(db.String(32), default = 'fish')
 
-# # class Customer(db.Model):
-# #     id = db.Column(db.Integer, primary_key = True)
-# #     name = db.Column(db.String(16))
-# #     addresses = db.relationship('Address', backref = 'customer', lazy = True)
+class Customer(db.Model):
+    __tablename__= "customer"
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(16))
 
-# # class Address(db.Model):
-# #     id = db.Column(db.Integer, primary_key = True)
-# #     position = db.Column(db.String(128))
-# #     custom_id = db.Column(db.Integer, db.ForeignKey(Customer.id))
+class Address(db.Model):
+    __tablename__= "adress" # 表名
+    id = db.Column(db.Integer, primary_key = True)
+    position = db.Column(db.String(128))
+    custom_id = db.Column(db.Integer, db.ForeignKey(Customer.id)) #  创建Customer外键
+
+    customer = db.relationship('Customer', backref = 'address') # 一对多,一个customer对应多个address
+
+class CustomerDetail(db.Model):
+    __tablename__= "customerDetail"
+    id = db.Column(db.Integer, primary_key = True)
+    height = db.Column(db.Integer)
+    custom_id = db.Column(db.Integer, db.ForeignKey(Customer.id)) #  创建Customer外键
+
+    customer = db.relationship('Customer', backref = db.backref('CustomerDetail',uselist=False)) # 一对一,一个customer对应一个CustomerDetail
+
+

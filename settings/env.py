@@ -37,7 +37,7 @@ def get_db_url(dbinfo):
 class Config():
     DEBUG: False
     TESTING = False
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_TRACK_MODIFICATIONS = False # 是否跟踪每次的修改
     SESSION_TYPE = 'redis'  # session指定redis
     SESSION_PERMANENT = False  # 如果设置session的生命周期是否是会话期, 为True，则关闭浏览器session就失效
     SESSION_USE_SIGNER = False  # 是否对发送到浏览器上session的cookie值进行加密
@@ -45,18 +45,20 @@ class Config():
     # session保存数据到redis时启用的链接对象
     SESSION_REDIS = redis.Redis(host='127.0.0.1', port='6379')  # 用于连接redis的配置
     SQLALCHEMY_POOL_SIZE = 5  # 数据库连接池的大小。默认是数据库引擎的默认值(通常是 5)。
+    JSON_AS_ASCII = False # 返回报文中文乱码
 
 
 class DevelopConfig(Config):
     DEBUG = True
     dbinfo = {
         'ENGINE': 'mysql',
-        'DRIVER': 'mysqldb',
+        # 'DRIVER': 'mysqldb',
+        'DRIVER': 'pymysql',
         'USER': 'root',
         'PASSWORD': '794652asd',
         'HOST': 'localhost',
         'PORT': '3306',
-        'NAME': 'database_local_test_YJB_20211013',
+        'NAME': 'ry_flask',
     }
     SQLALCHEMY_DATABASE_URI = get_db_url(dbinfo)
 
@@ -65,12 +67,13 @@ class TestConfig(Config):
     DEBUG = True
     dbinfo = {
         'ENGINE': 'mysql',
-        'DRIVER': 'mysqldb',
+        # 'DRIVER': 'mysqldb',
+        'DRIVER': 'pymysql',
         'USER': 'root',
         'PASSWORD': '794652asd',
         'HOST': 'localhost',
         'PORT': '3306',
-        'NAME': 'database_local_test_YJB_20211013',
+        'NAME': 'ry_flask',
     }
     SQLALCHEMY_DATABASE_URI = get_db_url(dbinfo)
 
@@ -78,12 +81,13 @@ class TestConfig(Config):
 class StagingConfig(Config):
     dbinfo = {
         'ENGINE': 'mysql',
-        'DRIVER': 'mysqldb',
+        # 'DRIVER': 'mysqldb',
+        'DRIVER': 'pymysql',
         'USER': 'root',
         'PASSWORD': '794652asd',
         'HOST': 'localhost',
         'PORT': '3306',
-        'NAME': 'database_local_test_YJB_20211013',
+        'NAME': 'ry_flask',
     }
     SQLALCHEMY_DATABASE_URI = get_db_url(dbinfo)
 
@@ -92,12 +96,13 @@ class ProductConfig(Config):
 
     dbinfo = {
         'ENGINE': 'mysql',
-        'DRIVER': 'mysqldb',
+        # 'DRIVER': 'mysqldb',
+        'DRIVER': 'pymysql',
         'USER': 'root',
         'PASSWORD': '794652asd',
         'HOST': 'localhost',
         'PORT': '3306',
-        'NAME': 'database_local_test_YJB_20211013',
+        'NAME': 'ry_flask',
         # 'DSNNAME': 'SQLSERVER11'
         # 'DSNNAME': 'SALEDATE'
         # 'DSNNAME': 'SALEDATE20201126'
