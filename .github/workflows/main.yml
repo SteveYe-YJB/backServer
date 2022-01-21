@@ -53,8 +53,7 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         script: |
-          cd /steveYe/project
-          source pyEnv/bin/activate
+          py
           cd selfbackserver/
           wget https://github.com/SteveYe-YJB/backServer/releases/latest/download/release.tgz -O release.tgz
           tar zxvf release.tgz

@@ -1,6 +1,6 @@
-from pyparsing import autoname_elements
-from sqlalchemy import false
 from App.utils.ext import db
+from datetime import datetime
+import pandas as pd
 
 # class Skukey(db.Model):
 #     __tablename__ = 'skuKeyId_table_20201126'
@@ -184,4 +184,68 @@ class CustomerDetail(db.Model):
 
     customer = db.relationship('Customer', backref = db.backref('CustomerDetail',uselist=False)) # 一对一,一个customer对应一个CustomerDetail
 
+# 用户表
+class UserInfomodel(db.Model):
+    __tablename__="user_info"
+    user_id = db.Column(db.String(32), primary_key = True) # use表主键
+    user_name = db.Column(db.String(20)) # 用户名
+    account_no = db.Column(db.String(20), nullable=False) # 账户名
+    password = db.Column(db.String(32), nullable=False) # 密码
+    create_time = db.Column(db.DateTime, nullable=False) # 创建时间
+    update_time = db.Column(db.DateTime, nullable=False) # 更新时间
 
+    # 获取用户
+    def getUserInfo(self, account_no, password):
+        userInfo = db.session.query(
+            UserInfomodel.user_id,
+            UserInfomodel.user_name
+        ).filter_by(
+            account_no = account_no,
+            password = password
+        )
+        
+        return userInfo
+
+
+    # 插入用户表
+    def insertUserInfo(user_id, user_name, account_no, password, create_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S'), update_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')):
+        userInfo = UserInfomodel(
+            user_id = user_id,
+            user_name = user_name, 
+            account_no = account_no, 
+            password = password, 
+            create_time = create_time, 
+            update_time = update_time
+        )
+        db.session.add(userInfo)
+
+# 登陆表
+class UserLoginModel(db.Model):
+    __tablename__="user_login"
+    login_key_id = db.Column(db.String(32), primary_key = True) # 登陆表主键
+    user_id = db.Column(db.String(32), db.ForeignKey(UserInfomodel.user_id), nullable=False, unique=True) # use表keyId
+    create_time = db.Column(db.DateTime, nullable=False) # 创建时间
+    update_time = db.Column(db.DateTime, nullable=False) # 最近一次登陆时间
+
+    userInfo = db.relationship('UserInfomodel', backref = db.backref('UserLoginModel',uselist=False)) # 一对一,一个用户对应一个登陆
+
+
+    # 插入登陆表
+    def insertUserLogin(login_key_id, user_id, create_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S'), update_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')):
+        userLogin = UserLoginModel(
+            login_key_id = login_key_id,
+            user_id = user_id,
+            create_time = create_time,
+            update_time = update_time
+        )
+        db.session.add(userLogin)
+    
+    # 更新登陆表
+    def updateUserLogin(user_id, update_time):
+        UserLoginModel.query.filter_by(
+            user_id = user_id
+        ).update(
+            {
+                'update_time': update_time
+            }
+        )

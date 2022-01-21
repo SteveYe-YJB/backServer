@@ -17,6 +17,30 @@
 
 import redis
 
+# 公共配置参数类
+class Config():
+    DEBUG: False
+    TESTING = False
+    SQLALCHEMY_TRACK_MODIFICATIONS = False # 是否跟踪每次的修改
+    SESSION_TYPE = 'redis'  # session指定redis
+    SESSION_PERMANENT = False  # 如果设置session的生命周期是否是会话期, 为True，则关闭浏览器session就失效
+    SESSION_USE_SIGNER = False  # 是否对发送到浏览器上session的cookie值进行加密
+    SESSION_KEY_PREFIX = "session:"  # 保存到redis的session数的名称前缀
+    # session保存数据到redis时启用的链接对象
+    SESSION_REDIS = redis.Redis(host='127.0.0.1', port='6379')  # 用于连接redis的配置
+    SQLALCHEMY_POOL_SIZE = 5  # 数据库连接池的大小。默认是数据库引擎的默认值(通常是 5)。
+    JSON_AS_ASCII = False # 返回报文中文乱码
+    CACHE_DEFAULT_TIMEOUT = 60*3 # 缓存保留时间,单位为分钟
+    # 邮件参数
+    MAIL_SERVER = 'smtp.qq.com' # qq邮箱默认为smtp.qq.com
+    MAIL_PORT = 465 # qq邮箱默认465
+    MAIL_USE_TLS = False
+    MAIL_USE_SSL = True
+    MAIL_DEBUG = True  # 生产设置为False
+    MAIL_USERNAME = '790021919@qq.com'
+    MAIL_PASSWORD = 'ljjwgodxbgjebbgf' # 该参数需要到qq邮箱 -》设置 -》账号设置 -》开启POP3/SMTP服务 -》 获取密码
+    MAIL_DEFAULT_SENDER = '790021919@qq.com'
+
 
 def get_db_url(dbinfo):
     ENGINE = dbinfo.get('ENGINE')
@@ -32,21 +56,6 @@ def get_db_url(dbinfo):
     NAME = dbinfo.get('NAME')  # mysql
     # mysql配置
     return '{}+{}://{}:{}@{}:{}/{}'.format(ENGINE, DRIVER, USER, PASSWORD, HOST, PORT, NAME)
-
-
-class Config():
-    DEBUG: False
-    TESTING = False
-    SQLALCHEMY_TRACK_MODIFICATIONS = False # 是否跟踪每次的修改
-    SESSION_TYPE = 'redis'  # session指定redis
-    SESSION_PERMANENT = False  # 如果设置session的生命周期是否是会话期, 为True，则关闭浏览器session就失效
-    SESSION_USE_SIGNER = False  # 是否对发送到浏览器上session的cookie值进行加密
-    SESSION_KEY_PREFIX = "session:"  # 保存到redis的session数的名称前缀
-    # session保存数据到redis时启用的链接对象
-    SESSION_REDIS = redis.Redis(host='127.0.0.1', port='6379')  # 用于连接redis的配置
-    SQLALCHEMY_POOL_SIZE = 5  # 数据库连接池的大小。默认是数据库引擎的默认值(通常是 5)。
-    JSON_AS_ASCII = False # 返回报文中文乱码
-
 
 class DevelopConfig(Config):
     DEBUG = True

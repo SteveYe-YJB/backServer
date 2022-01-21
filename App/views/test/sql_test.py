@@ -1,11 +1,8 @@
-from unicodedata import name
-from flask import request, Blueprint, jsonify
-from App.models.calculationTool import CalculationTool
-from App.models.common.request import RequestTool
+from flask import Blueprint
 from App.DB_Module import Customer,CustomerDetail,Address
 from App.utils.ext import db
 
-sql = Blueprint('sql', __name__, url_prefix='/sql')
+sql = Blueprint('sql', __name__, url_prefix='/api/sql')
 
 @sql.route('/otm', methods=['POST', 'GET'])
 def sqltest():
@@ -44,4 +41,12 @@ def sqltest2():
     # 重复插入是旧的记录的外键会变为null,对应的外键给到新纪录
     print(customer.CustomerDetail) 
     return 'ok'
+
+# sql转pandas
+# userInfo = pd.read_sql(
+#             UserInfomodel().getUserInfo(
+#                 account_no= data['accountNo'],
+#                 password= Crypt.Encrypt(data['passWord'])
+#             ).statement, 
+#             db.session.bind)
 
