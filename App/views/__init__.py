@@ -13,8 +13,7 @@ def init_view(app):
     @app.before_request
     def be1():
         token = request.headers.get('Authorization')
-        login_key = cache.get(token)
-        print(token is None, login_key is None)
+        login_key = token and cache.get(token)
         if request.path == "/api/login/register":
             return None
         elif not token or (not login_key or not GobalFun.certify_token(login_key, token)) :
