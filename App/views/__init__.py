@@ -10,19 +10,19 @@ from .login.register import login
 def init_view(app):
     
     #  在请求进入视图函数之前 做出响应
-    @app.before_request
-    def be1():
-        token = request.headers.get('Authorization')
-        login_key = token and cache.get(token)
-        if request.path == "/api/login/register":
-            return None
-        elif not token or (not login_key or not GobalFun.certify_token(login_key, token)) :
-            return {
-                'state': '403',
-                'msg': '会话过期,请重新登陆!',
-                'data': {}
-            }
-        return None
+    # @app.before_request
+    # def be1():
+        # token = request.headers.get('Authorization')
+        # login_key = token and cache.get(token)
+        # if request.path == "/api/login/register":
+        #     return None
+        # elif not token or (not login_key or not GobalFun.certify_token(login_key, token)) :
+        #     return {
+        #         'state': '403',
+        #         'msg': '会话过期,请重新登陆!',
+        #         'data': {}
+        #     }
+        # return None
 
     app.register_blueprint(tool)
     app.register_blueprint(sql)
