@@ -19,14 +19,6 @@ from environs import Env
 
 env = Env()
 env.read_env()  # read .env file, if it exists
-print(env('MAIL_PASSWORD', ''))
-# import os
-# from dotenv import load_dotenv, find_dotenv
-# 加载.env中的所有环境变量,自动识别根目录.env文件
-# load_dotenv(find_dotenv())
-
-# 动态识别该代码所在电脑是开发者还是生产环境还是其他
-# env = os.environ.get('FLASK_ENV', 'develop')
 
 # 公共配置参数类
 class Config():
@@ -74,11 +66,11 @@ class DevelopConfig(Config):
         'ENGINE': 'mysql',
         # 'DRIVER': 'mysqldb',
         'DRIVER': 'pymysql',
-        'USER': 'root',
-        'PASSWORD': '794652asd',
+        'USER': env('SQL_USER'),
+        'PASSWORD': env('SQL_PASSWORD'),
         'HOST': 'localhost',
         'PORT': '3306',
-        'NAME': 'ry_flask',
+        'NAME': env('SQL_NAME'),
     }
     SQLALCHEMY_DATABASE_URI = get_db_url(dbinfo)
 
@@ -89,11 +81,11 @@ class TestConfig(Config):
         'ENGINE': 'mysql',
         # 'DRIVER': 'mysqldb',
         'DRIVER': 'pymysql',
-        'USER': 'root',
-        'PASSWORD': '794652asd',
+        'USER': env('SQL_USER'),
+        'PASSWORD': env('SQL_PASSWORD'),
         'HOST': 'localhost',
         'PORT': '3306',
-        'NAME': 'ry_flask',
+        'NAME': env('SQL_NAME'),
     }
     SQLALCHEMY_DATABASE_URI = get_db_url(dbinfo)
 
@@ -103,11 +95,11 @@ class StagingConfig(Config):
         'ENGINE': 'mysql',
         # 'DRIVER': 'mysqldb',
         'DRIVER': 'pymysql',
-        'USER': 'root',
-        'PASSWORD': '794652asd',
+        'USER': env('SQL_USER'),
+        'PASSWORD': env('SQL_PASSWORD'),
         'HOST': 'localhost',
         'PORT': '3306',
-        'NAME': 'ry_flask',
+        'NAME': env('SQL_NAME'),
     }
     SQLALCHEMY_DATABASE_URI = get_db_url(dbinfo)
 
@@ -118,14 +110,11 @@ class ProductConfig(Config):
         'ENGINE': 'mysql',
         # 'DRIVER': 'mysqldb',
         'DRIVER': 'pymysql',
-        'USER': 'root',
-        'PASSWORD': '794652asd',
+        'USER': env('SQL_USER'),
+        'PASSWORD': env('SQL_PASSWORD'),
         'HOST': 'localhost',
         'PORT': '3306',
-        'NAME': 'ry_flask',
-        # 'DSNNAME': 'SQLSERVER11'
-        # 'DSNNAME': 'SALEDATE'
-        # 'DSNNAME': 'SALEDATE20201126'
+        'NAME': env('SQL_NAME'),
     }
     SQLALCHEMY_DATABASE_URI = get_db_url(dbinfo)
 
