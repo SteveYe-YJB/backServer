@@ -8,7 +8,6 @@
 
 - 特许包版本
   - pip3 install flask_migrate==2.7.0
-  - pip install python-dotenv
   
 ## 开启服务
 

@@ -14,8 +14,19 @@
 #     # 'DSNNAME': 'SALEDATE'
 #     # 'DSNNAME': 'SALEDATE20201126'
 # }
-
 import redis
+from environs import Env
+
+env = Env()
+env.read_env()  # read .env file, if it exists
+print(env('MAIL_PASSWORD', ''))
+# import os
+# from dotenv import load_dotenv, find_dotenv
+# 加载.env中的所有环境变量,自动识别根目录.env文件
+# load_dotenv(find_dotenv())
+
+# 动态识别该代码所在电脑是开发者还是生产环境还是其他
+# env = os.environ.get('FLASK_ENV', 'develop')
 
 # 公共配置参数类
 class Config():
@@ -32,14 +43,14 @@ class Config():
     JSON_AS_ASCII = False # 返回报文中文乱码
     CACHE_DEFAULT_TIMEOUT = 60*3 # 缓存保留时间,单位为分钟
     # 邮件参数
-    MAIL_SERVER = 'smtp.qq.com' # qq邮箱默认为smtp.qq.com
-    MAIL_PORT = 465 # qq邮箱默认465
-    MAIL_USE_TLS = False
-    MAIL_USE_SSL = True
-    MAIL_DEBUG = True  # 生产设置为False
-    MAIL_USERNAME = '790021919@qq.com'
-    MAIL_PASSWORD = 'ljjwgodxbgjebbgf' # 该参数需要到qq邮箱 -》设置 -》账号设置 -》开启POP3/SMTP服务 -》 获取密码
-    MAIL_DEFAULT_SENDER = '790021919@qq.com'
+    MAIL_SERVER = env('MAIL_SERVER', '') # 邮箱服务地址
+    MAIL_PORT = env('MAIL_PORT', -1) # 邮箱端口
+    MAIL_USE_TLS = env.bool('MAIL_USE_TLS', '')
+    MAIL_USE_SSL = env.bool('MAIL_USE_SSL', '')
+    MAIL_DEBUG = env.bool('MAIL_DEBUG', '')
+    MAIL_USERNAME = env('MAIL_USERNAME', '') # 邮箱地址
+    MAIL_PASSWORD = env('MAIL_PASSWORD', '') # # 该参数需要到qq邮箱 -》设置 -》账号设置 -》开启POP3/SMTP服务 -》 获取密码
+    MAIL_DEFAULT_SENDER = env('MAIL_DEFAULT_SENDER', '') # 同邮箱地址
 
 
 def get_db_url(dbinfo):
@@ -118,11 +129,12 @@ class ProductConfig(Config):
     }
     SQLALCHEMY_DATABASE_URI = get_db_url(dbinfo)
 
-
-envs = {
-    'develop': DevelopConfig,
-    'testing': TestConfig,
-    'staging': StagingConfig,
-    'product': ProductConfig,
-    'default': DevelopConfig
-}
+def getEnv():
+    envs = {
+        'develop': DevelopConfig,
+        'testing': TestConfig,
+        'staging': StagingConfig,
+        'product': ProductConfig,
+        'default': DevelopConfig
+    }
+    return envs.get(env('FLASK_ENV', 'develop'))

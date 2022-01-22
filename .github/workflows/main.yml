@@ -53,11 +53,12 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         script: |
-          py
+          cd /steveYe/project
+          source pyEnv/bin/activate
           cd selfbackserver/
           wget https://github.com/SteveYe-YJB/backServer/releases/latest/download/release.tgz -O release.tgz
           tar zxvf release.tgz
-          nohup python app.py runserver -h localhost -p 9528 -d -r --thread >/dev/null 2>&1 & 
+          nohup python app.py runserver -h localhost -p 9528 -d -r --thread >/dev/null 2>&1 &
     # npm install --production
     # pm2 reload pm2.config.json
     # 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
