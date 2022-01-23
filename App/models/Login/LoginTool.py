@@ -43,7 +43,7 @@ class LoginTool:
         # 生成token
         token = GobalFun.generate_token(login_id)
         # 删除redis旧token
-        cache.delete(oldToken)
+        oldToken and cache.delete(oldToken)
         # 设置新token
         cache.set(token, login_id)
 
