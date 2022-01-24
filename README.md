@@ -13,11 +13,12 @@
 
 - 本地
 
-  - python app.py runserver -h localhost -p 9528 -d -r --thread 开启服务
+  - python app.py runserver  -r --thread 开启服务
 
 - 生产 linux
 
-  - nohup python app.py runserver -h localhost -p 9528 -d -r --thread >/dev/null 2>&1 & 不阻塞进程运行
+  - nohup python app.py runserver  -r --thread >/dev/null 2>&1 &  # 不打印日志,不阻塞进程运行
+  - nohup python app.py runserver  -r --thread >/steveYe/project/log/selfbackserver/`date +%Y-%m-%d`.log 2>&1 & # 按日期打印日志不阻塞进程运行
 
 ## 数据库操作
 

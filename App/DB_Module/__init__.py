@@ -195,13 +195,12 @@ class UserInfomodel(db.Model):
     update_time = db.Column(db.DateTime, nullable=False) # 更新时间
 
     # 获取用户
-    def getUserInfo(self, account_no, password):
+    def getUserInfo(self, account_no):
         userInfo = db.session.query(
             UserInfomodel.user_id,
             UserInfomodel.user_name
         ).filter_by(
-            account_no = account_no,
-            password = password
+            account_no = account_no
         )
         
         return userInfo

@@ -12,8 +12,7 @@ class LoginTool:
         user_name = ''
         # 查询是否存在用户
         userInfo = UserInfomodel().getUserInfo(
-            account_no= data['accountNo'],
-            password= Crypt.Encrypt(data['passWord'])
+            account_no= data['accountNo']
         ).first()
         if userInfo is None:
             # 暂无用户,需新增
@@ -29,6 +28,8 @@ class LoginTool:
                 login_key_id= login_id,
                 user_id = user_id
             )
+        elif Crypt.Encrypt(data['passWord']) != userInfo.password:
+            return {}
         else:
             # 根据user_id获取login_key_id
             user_login = db.session.query(UserLoginModel).filter_by(user_id = userInfo.user_id)
