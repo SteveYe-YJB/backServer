@@ -21,10 +21,10 @@ def user_login():
    requestData = RequestTool.RequestData(fileDict)
    if bool(requestData['accountNo']) and bool(requestData['passWord']) :
       result['data'] = LoginTool.Register(requestData, request.headers.get('Authorization'))
-      result['state'] = '1'
       if not bool(result['data']):
          result['msg'] = '密码错误'
       else:
+         result['state'] = '1'
          result['msg'] = '登陆成功'
    else: 
       result['msg'] = '密码或账号不符合要求'
