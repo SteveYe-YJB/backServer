@@ -198,7 +198,8 @@ class UserInfomodel(db.Model):
     def getUserInfo(self, account_no):
         userInfo = db.session.query(
             UserInfomodel.user_id,
-            UserInfomodel.user_name
+            UserInfomodel.user_name,
+            UserInfomodel.password
         ).filter_by(
             account_no = account_no
         )
