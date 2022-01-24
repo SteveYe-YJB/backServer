@@ -1,3 +1,4 @@
+from enum import unique
 from App.utils.ext import db
 from datetime import datetime
 import pandas as pd
@@ -189,7 +190,7 @@ class UserInfomodel(db.Model):
     __tablename__="user_info"
     user_id = db.Column(db.String(32), primary_key = True) # use表主键
     user_name = db.Column(db.String(20)) # 用户名
-    account_no = db.Column(db.String(20), nullable=False) # 账户名
+    account_no = db.Column(db.String(20), nullable=False, unique=True) # 账户名
     password = db.Column(db.String(32), nullable=False) # 密码
     create_time = db.Column(db.DateTime, nullable=False) # 创建时间
     update_time = db.Column(db.DateTime, nullable=False) # 更新时间
