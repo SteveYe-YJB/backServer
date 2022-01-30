@@ -2,14 +2,14 @@ from flask import Blueprint, jsonify, request
 from App.models.common.request import RequestTool
 from App.models.Login.LoginTool import LoginTool
 
-login = Blueprint('login', __name__, url_prefix='/api/login')
+login = Blueprint('login', __name__, url_prefix='/api')
 
 # 注册
-@login.route('/register', methods=['POST'])
+@login.route('/login', methods=['POST'])
 def user_login():   
    # 初始化返回数据
    result = {
-      'state': '0',
+      'state': 204,
       'msg': '',
       'data': {}
    }
@@ -24,7 +24,7 @@ def user_login():
       if not bool(result['data']):
          result['msg'] = '密码错误'
       else:
-         result['state'] = '1'
+         result['state'] = 200
          result['msg'] = '登陆成功'
    else: 
       result['msg'] = '密码或账号不符合要求'

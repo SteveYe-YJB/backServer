@@ -1,4 +1,3 @@
-#coding:utf-8
 import os
 from App import create_app
 from flask_script import Manager

@@ -1,10 +1,9 @@
+ #coding=utf-8
 from flask import Flask, jsonify
 from App.timerTasks.timerTasks import TimeTasks
 from App.utils.ext import init_ext
 from App.views import init_view
 from settings.env import getEnv
-
-
 
 def create_app():
     app = Flask(__name__)
