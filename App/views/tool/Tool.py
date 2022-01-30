@@ -8,12 +8,12 @@ tool = Blueprint('tool', __name__, url_prefix='/api/tool')
 @tool.route('/standardScore', methods=['POST', 'GET'])
 def standardScore():
     result = {
-        'state': '0',
+        'state': 204,
         'msg': '',
         'data': []
     }
     if request.method == 'POST':
-        result['state'] = '1'
+        result['state'] = 200
         if set(['score_data', 'new_std', 'new_mean']) <= set(request.json.keys()) and bool(request.json.get('score_data')):
             result['data'] = CalculationTool.StandardScore(
                 request.json.get('score_data'),
@@ -30,7 +30,7 @@ def standardScore():
 def readProject():
     # 初始化返回函数
     result = {
-        'state': '0',
+        'state': 204,
         'msg': '',
         'data': []
     }
@@ -42,7 +42,7 @@ def readProject():
     if request.method == 'POST':
         requestData = RequestTool.RequestData(fileDict)
         result['data'] = CalculationTool.GetExcelList(requestData, 'App/static/files/2020科研数据.xlsx', '横向到帐经费')
-        result['state'] = '1'
+        result['state'] = 200
     else:
         result['msg'] = '无效的get请求方式'
     return jsonify(result)
